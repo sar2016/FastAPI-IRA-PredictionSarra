@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ML API Prediction</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #eef2f3;
+        color: #333;
+        font-family: 'Arial', sans-serif;
+      }
+      header {
+        background: linear-gradient(90deg, #0056b3, #004494);
+        padding: 15px 0;
+        text-align: center;
+        color: white;
+      }
+      .logo {
+        width: 80px;
+        height: auto;
+      }
+      .hero {
+        text-align: center;
+        padding: 60px 20px;
+        background: #007bff;
+        color: white;
+        border-radius: 8px;
+        margin: 20px;
+      }
+      .container {
+        margin-top: 30px;
+      }
+      .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border-radius: 25px;
+        padding: 10px 20px;
+      }
+      .hero h2 {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .hero p {
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="logo.webp" alt="Logo" class="logo" />
+      <h1>Machine Learning API Prediction</h1>
+    </header>
+    <section class="hero">
+      <h2>Bienvenue sur notre plateforme de Prédiction</h2>
+      <p>Utilisez notre API de Machine Learning pour analyser et prédire des tendances basées sur les données météorologiques et environnementales.</p>
+    </section>
+    <div class="container">
+      <div class="card p-4">
+        <h2 class="text-center mb-4">Faites une Prédiction</h2>
+        <form id="predictionForm">
+          <div id="inputFields" class="row g-3"></div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </div>
+        </form>
+        <h3 class="mt-4">Résultat :</h3>
+        <pre id="result" class="p-3 border rounded"></pre>
+      </div>
+    </div>
+    <script>
+      const fields = {
+        SYM1: 0,
+        SYM22: 0,
+        SYM23: 0,
+        SYM29: 0,
+        SYM3: 0,
+        SYM31: 0,
+        SYM34: 0,
+        SYM35: 0,
+        SYM5: 0,
+        SYM6: 0,
+        SYM68: 0,
+        SYM8: 0,
+        average_Co: 0.0,
+        average_IQA_global: 0.0,
+        average_No_2: 0.0,
+        average_O_3: 0.0,
+        average_Pm_2_5: 0.0,
+        average_So_2: 0.0,
+        avg_pressure: 0.0,
+        avg_temperature_max: 0.0,
+        dept: 1,
+        indice: 0,
+        week_cos: 0.0,
+        year: 2024,
+      };
+      
+      const departments = [
+        { code: 1, name: "Ain" },
+        { code: 3, name: "Allier" },
+        { code: 7, name: "Ardèche" },
+        { code: 15, name: "Cantal" },
+        { code: 26, name: "Drôme" },
+        { code: 38, name: "Isère" },
+        { code: 42, name: "Loire" },
+        { code: 43, name: "Haute-Loire" },
+        { code: 63, name: "Puy-de-Dôme" },
+        { code: 69, name: "Rhône" },
+        { code: 73, name: "Savoie" },
+        { code: 74, name: "Haute-Savoie" }
+      ];
+      
+      const inputFieldsDiv = document.getElementById("inputFields");
+      for (const key in fields) {
+        const div = document.createElement("div");
+        div.className = "col-md-4";
+
+        const label = document.createElement("label");
+        label.textContent = key;
+        label.className = "form-label";
+
+        if (key === "dept") {
+          const select = document.createElement("select");
+          select.className = "form-control";
+          select.name = key;
+          departments.forEach(dep => {
+            const option = document.createElement("option");
+            option.value = dep.code;
+            option.textContent = `${dep.code} - ${dep.name}`;
+            select.appendChild(option);
+          });
+          div.appendChild(label);
+          div.appendChild(select);
+        } else {
+          const input = document.createElement("input");
+          input.type = "number";
+          input.className = "form-control";
+          input.name = key;
+          input.value = fields[key];
+          div.appendChild(label);
+          div.appendChild(input);
+        }
+        inputFieldsDiv.appendChild(div);
+      }
+    </script>
+  </body>
+</html>
